@@ -1,0 +1,482 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>희년 선교대회 · 미디어 연출 예시집</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+<style>
+:root{
+  --bg:#15161B;
+  --bg-2:#1C1E25;
+  --card:#212430;
+  --line:#2E323F;
+  --ink:#EAE8E3;
+  --ink-2:#9498A5;
+  --ink-3:#5F6472;
+
+  /* 젤 필터 색 — 분류마다 하나씩 */
+  --gel-wash:#F0DFB8;
+  --gel-beam:#5B8CFF;
+  --gel-tube:#E24FA0;
+  --gel-hit:#FF8A2B;
+  --gel-shift:#7B8697;
+  --gel-screen:#35C8C0;
+  --gel-layout:#8B7BF0;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Pretendard,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.5;
+}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- 머리말 ---------- */
+header{
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#1A1C23 0%,var(--bg) 100%);
+}
+.head-in{padding:34px 0 26px}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:12px;
+}
+h1{
+  font-family:'Big Shoulders Display',Pretendard,sans-serif;
+  font-weight:800;font-size:clamp(34px,6vw,58px);
+  line-height:.95;letter-spacing:.005em;margin:0 0 10px;
+}
+h1 .ko{font-family:Pretendard,sans-serif;font-weight:800;letter-spacing:-.02em}
+.lede{color:var(--ink-2);font-size:14.5px;max-width:56ch;margin:0}
+
+/* ---------- 탭 ---------- */
+nav{
+  position:sticky;top:0;z-index:40;
+  background:rgba(21,22,27,.92);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  appearance:none;background:none;border:0;
+  color:var(--ink-3);cursor:pointer;
+  font-family:Pretendard,sans-serif;font-size:14px;font-weight:600;
+  padding:16px 16px 14px;white-space:nowrap;
+  border-bottom:2px solid transparent;
+  transition:color .15s;
+}
+.tab .num{
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+  color:var(--ink-3);margin-right:7px;opacity:.7;
+}
+.tab:hover{color:var(--ink-2)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab:focus-visible{outline:2px solid var(--gel-beam);outline-offset:-4px}
+
+/* ---------- 패널 ---------- */
+.panel{display:none;padding:34px 0 80px}
+.panel.on{display:block}
+
+.group{margin-bottom:44px}
+.group-head{
+  display:flex;align-items:baseline;gap:12px;
+  padding-bottom:10px;margin-bottom:18px;
+  border-bottom:1px solid var(--line);
+}
+.gel{
+  width:26px;height:5px;border-radius:1px;flex:none;
+  align-self:center;
+  background:var(--g);
+  box-shadow:0 0 14px -1px var(--g);
+}
+.group-head h2{
+  font-size:16px;font-weight:700;letter-spacing:-.01em;margin:0;
+}
+.group-note{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--ink-3);margin-left:auto;text-align:right;
+}
+
+/* ---------- 카드 ---------- */
+.grid{
+  display:grid;gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(228px,1fr));
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:3px;
+  overflow:hidden;
+  display:flex;flex-direction:column;
+  transition:border-color .18s,transform .18s,box-shadow .18s;
+}
+.card:hover{
+  border-color:var(--g);
+  transform:translateY(-2px);
+  box-shadow:0 0 0 1px var(--g), 0 14px 34px -18px var(--g);
+}
+.shot{
+  position:relative;aspect-ratio:16/9;
+  background:#101116;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.card:hover .shot img{filter:brightness(1.08)}
+.shot img{transition:filter .18s}
+.empty{
+  position:absolute;inset:8px;
+  border:1px dashed var(--line);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'IBM Plex Mono',monospace;font-size:10px;
+  letter-spacing:.1em;color:var(--ink-3);
+}
+.card.has-img{cursor:zoom-in}
+.play{
+  position:absolute;inset:0;pointer-events:none;
+  display:flex;align-items:center;justify-content:center;
+}
+.play i{
+  width:42px;height:42px;border-radius:50%;
+  background:rgba(14,15,19,.7);border:1px solid rgba(255,255,255,.28);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .18s;
+}
+.card:hover .play i{background:rgba(14,15,19,.45)}
+.play i::after{
+  content:"";margin-left:3px;
+  border-left:12px solid var(--ink);
+  border-top:7.5px solid transparent;border-bottom:7.5px solid transparent;
+}
+.card-body{padding:11px 12px 13px;border-top:2px solid var(--g)}
+.card h3{font-size:14px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.card p{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.45}
+
+/* ---------- 1번 탭 · 장비 ---------- */
+.rig{border-top:1px solid var(--line)}
+.strip{
+  display:grid;
+  grid-template-columns:1fr 132px;
+  gap:16px;align-items:center;
+  padding:15px 4px;
+  border-bottom:1px solid var(--line);
+}
+.strip .name{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.strip .desc{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.45}
+.dots{display:flex;flex-wrap:wrap;gap:3px;justify-content:flex-end}
+.dot{
+  width:9px;height:9px;border-radius:1px;
+  background:var(--g);box-shadow:0 0 7px -1px var(--g);
+}
+.count{
+  font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--ink-3);margin-left:6px;align-self:center;
+}
+.rig-note{
+  margin-top:26px;padding:16px 18px;
+  border:1px solid var(--line);border-left:2px solid var(--gel-hit);
+  border-radius:2px;background:var(--bg-2);
+}
+.rig-note h4{margin:0 0 7px;font-size:13px;font-weight:700}
+.rig-note p{margin:0 0 6px;font-size:12.5px;color:var(--ink-2);line-height:1.55}
+.rig-note p:last-child{margin-bottom:0}
+
+/* ---------- 확대 보기 ---------- */
+.lightbox{
+  position:fixed;inset:0;z-index:80;
+  background:rgba(10,10,13,.94);
+  display:none;align-items:center;justify-content:center;
+  padding:24px;cursor:zoom-out;
+}
+.lightbox.on{display:flex}
+.lb-close{
+  position:absolute;top:16px;right:18px;
+  appearance:none;background:none;border:0;cursor:pointer;
+  color:var(--ink-2);font-size:26px;line-height:1;padding:8px 10px;
+}
+.lb-close:hover{color:var(--ink)}
+.lb-video{position:relative;width:100%;aspect-ratio:16/9;cursor:default}
+.lb-video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:2px}
+.lb-video[hidden],#lbImg[hidden]{display:none}
+.lightbox figure{margin:0;max-width:1100px;width:100%;text-align:center}
+.lightbox img{max-width:100%;max-height:78vh;border-radius:2px}
+.lightbox figcaption{
+  margin-top:14px;font-size:13px;color:var(--ink-2);
+}
+.lightbox figcaption strong{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
+
+footer{
+  border-top:1px solid var(--line);padding:22px 0 40px;
+  font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-3);
+}
+
+@media (max-width:560px){
+  .strip{grid-template-columns:1fr;row-gap:8px}
+  .dots{justify-content:flex-start}
+  .group-note{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .card:hover{transform:none}
+}
+</style>
+
+<header>
+  <div class="wrap head-in">
+    <div class="eyebrow">Reference · 2026.08.15 — 08.17 · 청풍리조트</div>
+    <h1>희년 선교대회<br><span class="ko">미디어 연출 예시집</span></h1>
+    <p class="lede">순서를 준비하시며 "이런 느낌으로 해주세요"라고 말씀하실 때 쓰시는 그림책입니다. 마음에 드는 예시의 <strong>이름</strong>을 미디어팀에 알려주시면 됩니다.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-panel="p1" aria-selected="true"><span class="num">01</span>조명 종류</button>
+      <button class="tab" role="tab" data-panel="p2" aria-selected="false"><span class="num">02</span>조명</button>
+      <button class="tab" role="tab" data-panel="p3" aria-selected="false"><span class="num">03</span>영상 · 전면화면</button>
+      <button class="tab" role="tab" data-panel="p4" aria-selected="false"><span class="num">04</span>영상 · 카메라와 전환</button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="p1" class="panel on"></section>
+  <section id="p2" class="panel"></section>
+  <section id="p3" class="panel"></section>
+  <section id="p4" class="panel"></section>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="닫기">&times;</button>
+  <figure>
+    <div class="lb-video" id="lbVideo" hidden>
+      <iframe id="lbFrame" allow="autoplay; encrypted-media; fullscreen" allowfullscreen title="예시 영상"></iframe>
+    </div>
+    <img id="lbImg" alt="">
+    <figcaption><strong id="lbTitle"></strong><span id="lbDesc"></span></figcaption>
+  </figure>
+</div>
+
+<footer><div class="wrap">희년 선교대회 미디어팀 · 문의는 미디어하우스로</div></footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   사진과 영상 넣는 곳
+
+   [사진·움짤]  img 값에 이미지 주소를 붙여넣습니다.
+       img:"img/beam-fan.jpg"
+
+   [유튜브]     yt 값에 영상 ID를 넣습니다. 주소 전체가 아니라 ID만.
+       주소가 youtube.com/watch?v=AbCdEf12345 이면 → yt:"AbCdEf12345"
+       주소가 youtu.be/AbCdEf12345          이면 → yt:"AbCdEf12345"
+
+       t 값을 넣으면 그 초부터 재생됩니다. 1분 35초면 t:95
+       썸네일은 자동으로 가져오므로 img는 비워두셔도 됩니다.
+       예) { n:"빔 스윕", d:"...", yt:"AbCdEf12345", t:95 },
+
+   둘 다 비워두면 "이미지 없음" 자리로 표시됩니다.
+   ══════════════════════════════════════════════════════════════ */
+
+const RIG = [
+  { name:"BEAM 무빙라이트", qty:12, gel:"var(--gel-beam)",
+    desc:"좁고 선명한 광선을 쏘는 기구. 연무가 있어야 광선이 눈에 보입니다." },
+  { name:"LED 무빙라이트", qty:8, gel:"var(--gel-wash)",
+    desc:"색을 자유롭게 바꾸는 면 조명. 무대와 사람 얼굴을 비추는 역할을 맡습니다." },
+  { name:"LED 튜브라이트", qty:10, gel:"var(--gel-tube)",
+    desc:"막대 모양 조명. 세워 두면 무대 장식이 되고, 구간마다 색을 따로 낼 수 있습니다." },
+  { name:"LED 스트로브", qty:10, gel:"var(--gel-hit)",
+    desc:"아주 빠르게 번쩍이는 조명. 절정 부분에서 짧게만 씁니다." },
+  { name:"4구 블라인드", qty:4, gel:"var(--gel-hit)",
+    desc:"객석 쪽을 향해 쏘는 노란빛 조명. 한 방에 분위기를 끌어올립니다." },
+  { name:"헤이저", qty:2, gel:"var(--gel-shift)",
+    desc:"옅은 연무를 뿌리는 기계. 이게 있어야 빔 광선이 보입니다." },
+  { name:"조명 콘솔", qty:1, gel:"var(--gel-shift)",
+    desc:"모든 조명을 조작하는 제어 장비." },
+  { name:"조명 오퍼레이터", qty:1, gel:"var(--gel-shift)",
+    desc:"현장에서 조명을 운용하는 인원 1명. 미리 짜둔 순서대로 진행합니다." }
+];
+
+const DATA = {
+  p2:[
+    { title:"기본 조도", sub:"LED 무빙라이트", gel:"var(--gel-wash)", items:[
+      { n:"전면 백색 워시", d:"무대 전체를 흰빛으로 고르게. 설교·강의·선교보고용 기본값입니다.", img:"" },
+      { n:"웜 화이트 워시", d:"살짝 노란빛. 얼굴이 따뜻하게 보입니다. 만찬·간증에 어울립니다.", img:"" },
+      { n:"쿨 화이트 워시", d:"푸른빛 도는 흰색. 정신이 또렷해지는 느낌. 개회 선포·파송선서용.", img:"" },
+      { n:"강대상 프리셋 스팟", d:"정해진 자리 한 곳만 밝히고 주변은 어둡게. 움직이면 벗어납니다.", img:"" }
+    ]},
+    { title:"빔", sub:"BEAM 무빙라이트 + 헤이저", gel:"var(--gel-beam)", items:[
+      { n:"빔 샤프트 팬", d:"광선을 부채처럼 활짝 펼칩니다. 이 장비 구성에서 가장 강한 그림.", img:"" },
+      { n:"수직 빔 월", d:"12대를 모두 천장으로 곧게. 빛의 기둥이 늘어선 모습.", img:"" },
+      { n:"크로스 빔", d:"무대 위에서 광선이 서로 교차합니다.", img:"" },
+      { n:"빔 스윕", d:"광선이 좌우로 천천히 또는 빠르게 움직입니다.", img:"" },
+      { n:"관객석 향해 쏘기", d:"무대가 아닌 객석 쪽으로. 함께 참여하는 느낌을 줍니다.", img:"" },
+      { n:"고보 패턴 투사", d:"십자·별·창살 같은 문양을 빛으로 찍어 냅니다.", img:"" },
+      { n:"프리즘 분광", d:"광선 하나가 여러 갈래로 갈라집니다.", img:"" }
+    ]},
+    { title:"LED 튜브", sub:"막대 조명 10대", gel:"var(--gel-tube)", items:[
+      { n:"수직 배열 컬러", d:"막대를 세로로 세우고 색을 입혀 무대 배경을 만듭니다.", img:"" },
+      { n:"픽셀 체이스", d:"불빛이 한쪽에서 다른 쪽으로 흘러갑니다. 박자에 맞출 수 있습니다.", img:"" },
+      { n:"그라데이션", d:"위아래 또는 좌우로 색이 서서히 변합니다.", img:"" },
+      { n:"단색 정지", d:"한 가지 색으로 조용히 켜 둡니다. 차분한 순서의 배경.", img:"" }
+    ]},
+    { title:"임팩트", sub:"스트로브 · 블라인드", gel:"var(--gel-hit)", items:[
+      { n:"스트로브 버스트", d:"강하게 번쩍입니다. 절정에서 2~4초만 씁니다.", img:"" },
+      { n:"블라인드 히트", d:"객석 쪽 노란 조명을 한 번에 확 켭니다. 함성이 터지는 지점용.", img:"" },
+      { n:"블라인드 슬로우 페이드", d:"같은 조명을 천천히 밝혔다 줄입니다. 부드러운 마무리.", img:"" }
+    ]},
+    { title:"전환", sub:"순서와 순서 사이", gel:"var(--gel-shift)", items:[
+      { n:"블랙아웃 컷", d:"조명을 한 번에 끕니다. 영상이 시작되기 직전에 씁니다.", img:"" },
+      { n:"암전 후 단독 스팟", d:"완전히 껐다가 한 사람만 비춥니다. 극적인 시작.", img:"" },
+      { n:"슬로우 페이드", d:"3~5초에 걸쳐 서서히 바뀝니다.", img:"" },
+      { n:"앰비언트 로우", d:"아주 낮은 밝기만 유지합니다. 기도 시간에 적합합니다.", img:"" },
+      { n:"헤이저 단독", d:"조명 없이 연무만. 공기가 무거워지는 느낌을 만듭니다.", img:"" }
+    ]}
+  ],
+
+  p3:[
+    { title:"화면에 무엇이 나오는가", sub:"전면 스크린 내용", gel:"var(--gel-screen)", items:[
+      { n:"가사 자막", d:"배경 위에 찬양 가사를 얹습니다. 미디어팀이 직접 제작합니다.", img:"" },
+      { n:"로어서드 이름 자막", d:"화면 아래쪽에 이름과 소속을 띠 모양으로 표시합니다.", img:"" },
+      { n:"성경 본문 전면", d:"본문 구절을 화면 전체에 크게 띄웁니다.", img:"" },
+      { n:"강의 PPT 원본 송출", d:"보내주신 발표 자료를 그대로 화면에 띄웁니다.", img:"" },
+      { n:"영상 클립 전면", d:"준비된 영상을 화면 가득 재생합니다.", img:"" },
+      { n:"대기화면 · 카운트다운", d:"순서 시작 전 안내 화면과 남은 시간 표시.", img:"" },
+      { n:"모션 배경 루프", d:"천천히 움직이는 배경 그림. 가사나 본문 뒤에 깔립니다.", img:"" }
+    ]},
+    { title:"화면을 어떻게 나누는가", sub:"화면 배치", gel:"var(--gel-layout)", items:[
+      { n:"풀스크린 단일", d:"한 가지만 화면 전체에. 가장 기본입니다.", img:"" },
+      { n:"카메라 + 자막 오버레이", d:"무대를 비춘 카메라 화면 위에 자막을 얹습니다.", img:"" },
+      { n:"2분할", d:"발표자와 발표 자료를 나란히 보여줍니다.", img:"" },
+      { n:"작은 창(PIP)", d:"큰 화면 한쪽에 작은 화면을 겹칩니다. 원격 연결·통역용.", img:"" },
+      { n:"좌우 스크린 같은 화면", d:"양쪽 스크린에 똑같이 내보냅니다.", img:"" },
+      { n:"좌우 스크린 다른 화면", d:"한쪽은 자막, 다른 쪽은 카메라처럼 따로 씁니다.", img:"" }
+    ]}
+  ],
+
+  p4:[
+    { title:"카메라", sub:"어떻게 잡는가", gel:"var(--gel-screen)", items:[
+      { n:"고정 풀샷", d:"무대 전체를 움직임 없이 담습니다.", img:"" },
+      { n:"설교자 클로즈업", d:"얼굴과 표정이 보이도록 가까이 잡습니다.", img:"" },
+      { n:"관객 리액션", d:"참석자들의 반응을 담습니다. 찬양·환호 순서에 씁니다.", img:"" },
+      { n:"무대 이동 핸드헬드", d:"카메라를 들고 무대 가까이에서 따라갑니다.", img:"" },
+      { n:"하이앵글 전경", d:"높은 곳에서 회장 전체를 내려다봅니다.", img:"" }
+    ]},
+    { title:"전환", sub:"화면이 바뀌는 방식", gel:"var(--gel-shift)", items:[
+      { n:"컷", d:"즉시 딱 바뀝니다. 빠르고 힘 있는 순서에 씁니다.", img:"" },
+      { n:"디졸브", d:"두 화면이 겹치며 부드럽게 넘어갑니다.", img:"" },
+      { n:"페이드 투 블랙", d:"검게 어두워졌다가 다음 화면이 나옵니다.", img:"" },
+      { n:"스팅어", d:"짧은 그래픽 영상이 지나가며 화면을 바꿉니다.", img:"" }
+    ]}
+  ]
+};
+
+/* ── 그리기 ───────────────────────────────────────────────── */
+
+function renderRig(){
+  const rows = RIG.map(f=>{
+    const dots = f.qty>1
+      ? `<div class="dots">${'<i class="dot"></i>'.repeat(f.qty)}<span class="count">×${f.qty}</span></div>`
+      : `<div class="dots"><i class="dot"></i><span class="count">×1</span></div>`;
+    return `<div class="strip" style="--g:${f.gel}">
+      <div><div class="name">${f.name}</div><div class="desc">${f.desc}</div></div>
+      ${dots}
+    </div>`;
+  }).join('');
+
+  document.getElementById('p1').innerHTML = `
+    <div class="group">
+      <div class="group-head"><i class="gel" style="--g:var(--gel-beam)"></i>
+        <h2>대회에 들어오는 조명 장비</h2>
+        <span class="group-note">총 48대 · 오퍼레이터 1명</span></div>
+      <div class="rig">${rows}</div>
+      <div class="rig-note">
+        <h4>이 장비 구성으로 알아두실 점</h4>
+        <p>빔 광선을 보여주는 데 강한 구성입니다. 연무를 뿌리는 헤이저가 함께 들어오기 때문에, 공중에 광선이 뻗는 그림을 만들 수 있습니다.</p>
+        <p>사람을 따라다니며 비추는 조명은 없습니다. 무대를 이동하는 순서라면 서는 자리를 미리 정해 주셔야 그 자리에 빛을 맞춰 둘 수 있습니다.</p>
+        <p>조명을 조작하는 인원이 1명입니다. 현장에서 즉석으로 바꾸기보다 미리 짜둔 순서대로 진행됩니다.</p>
+      </div>
+    </div>`;
+}
+
+function card(it, gel){
+  const yt  = it.yt || '';
+  const src = it.img || (yt ? `https://img.youtube.com/vi/${yt}/hqdefault.jpg` : '');
+  const shot = src
+    ? `<img src="${src}" alt="${it.n}" loading="lazy">${yt ? '<div class="play"><i></i></div>' : ''}`
+    : `<div class="empty">이미지 없음</div>`;
+  return `<article class="card ${src?'has-img':''}" style="--g:${gel}"
+            data-img="${it.img||''}" data-yt="${yt}" data-t="${it.t||0}"
+            data-title="${it.n}" data-desc="${it.d}">
+    <div class="shot">${shot}</div>
+    <div class="card-body"><h3>${it.n}</h3><p>${it.d}</p></div>
+  </article>`;
+}
+
+function renderPanel(id){
+  document.getElementById(id).innerHTML = DATA[id].map(g=>`
+    <section class="group">
+      <div class="group-head"><i class="gel" style="--g:${g.gel}"></i>
+        <h2>${g.title}</h2><span class="group-note">${g.sub}</span></div>
+      <div class="grid">${g.items.map(it=>card(it,g.gel)).join('')}</div>
+    </section>`).join('');
+}
+
+renderRig();
+['p2','p3','p4'].forEach(renderPanel);
+
+/* ── 탭 ───────────────────────────────────────────────────── */
+const tabs = [...document.querySelectorAll('.tab')];
+tabs.forEach(t=>t.addEventListener('click',()=>{
+  tabs.forEach(x=>x.setAttribute('aria-selected', String(x===t)));
+  document.querySelectorAll('.panel').forEach(p=>
+    p.classList.toggle('on', p.id===t.dataset.panel));
+  window.scrollTo({top:0,behavior:'smooth'});
+}));
+
+/* ── 확대 보기 ────────────────────────────────────────────── */
+const lb    = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbVid = document.getElementById('lbVideo');
+const lbFrm = document.getElementById('lbFrame');
+
+function closeLb(){
+  lb.classList.remove('on');
+  lbFrm.src = '';              // 닫으면 재생을 멈춥니다
+}
+
+document.addEventListener('click', e=>{
+  const c = e.target.closest('.card.has-img');
+  if(!c) return;
+  const yt = c.dataset.yt, t = Number(c.dataset.t) || 0;
+
+  if(yt){
+    lbImg.hidden = true; lbVid.hidden = false;
+    lbFrm.src = `https://www.youtube-nocookie.com/embed/${yt}`
+              + `?autoplay=1&rel=0&modestbranding=1${t ? '&start='+t : ''}`;
+  } else {
+    lbVid.hidden = true; lbImg.hidden = false;
+    lbFrm.src = '';
+    lbImg.src = c.dataset.img;
+  }
+
+  document.getElementById('lbTitle').textContent = c.dataset.title;
+  document.getElementById('lbDesc').textContent  = c.dataset.desc;
+  lb.classList.add('on');
+});
+
+lb.addEventListener('click', e=>{
+  if(e.target === lb || e.target.id === 'lbClose') closeLb();
+});
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape') closeLb(); });
+</script>
